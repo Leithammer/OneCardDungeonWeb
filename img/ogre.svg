@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <ellipse rx="30" ry="40" cx="50" cy="50" style="fill:black;" />
+  <circle fill="white" cx="40%" cy="35%" r="8"/>
+  <circle fill="white" cx="60%" cy="35%" r="8"/>
+  <polygon stroke="blue" stroke-width="3" fill="lightblue" rx="2" points="25,2 2,48 48,48 25,2 " /> 
+  <!-- <path d="M1 1 H5 5" fill="red" /> -->
+<!-- <path d="M 10 5 Q 20 10 25 20" stroke="black" fill="transparent" />
+<path d="M 10 5 Q 10 20 20 25" stroke="black" fill="transparent" /> -->
+  <!-- <path d="M 10 10 H 90 V 90 H 10 Z" fill="transparent" stroke="red" /> -->
+</svg>

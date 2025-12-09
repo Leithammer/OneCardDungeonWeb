@@ -1,0 +1,149 @@
+html {
+  user-select: none;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  border-collapse: collapse;
+  cursor:default;
+}
+img {
+  margin:2px;
+  display:flex;
+}
+.can-drag {
+  cursor:grab;
+}
+.app-title {
+  width:270px;
+  font-size: 18px;
+}
+.app-area {
+  width:600px;
+  display: grid;
+  grid-template-columns: 270px 310px;
+  grid-gap: 3px;
+  padding: 3px;
+  border-collapse: collapse;
+}
+.game-area {
+  margin-right:100px;
+  width:270px;
+  align-items: center;
+}
+.notes-area {
+  width:320px;
+  border:1px solid red;
+  border-collapse: collapse;
+}
+.header {
+  display: grid;
+  grid-template-columns: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.dungeon {
+  background-color: white;
+}
+.dungeon-grid {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 10px;
+  grid-gap: 3px;
+  padding: 3px;
+  border-collapse: collapse;
+}
+.dungeon-title {
+  font-size: 10px;
+  display: grid;
+  align-items: center;
+}
+.dungeon-tile {
+  background-color:tan;
+  display: grid;
+  align-items: center;
+}
+.monster-area {
+  display: grid;
+  grid-template-columns: 45px 45px 45px 45px 45px;
+  grid-template-rows: 10px 40px 10px;
+  grid-gap: 3px;
+  padding: 3px;
+  border-collapse: collapse;
+}
+.monster-tile {
+  display: grid;
+  border:solid 1px black;
+}
+.monster-title {
+  font-size: 9px;
+  display: grid;
+  align-items: center;
+}
+.monster-icon {
+  height:30px;
+}
+.hero-tile {
+  background-color:tan;
+  display: grid;
+  align-items: center;
+}
+.hero-area {
+  display: grid;
+  grid-template-columns: 40px 40px 40px 40px 40px 40px;
+  grid-template-rows: 10px 42px 42px 30px;
+  grid-gap: 2px;
+  padding: 2px;
+  border-collapse: collapse;
+}
+.hero-title {
+  font-size: 9px;
+  display: grid;
+  align-items: center;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.large-font {
+  font-size: 24px;
+}
+.icon-large-font {
+  font-size:16px;
+}
+.underline {
+  border-bottom: 1px solid black;
+}
+.icon-button-border {
+  border-radius: 3px;
+  border: solid 1px black;
+  margin: 3px;
+  /* padding-bottom: 3px;
+  padding-top: 3px; */
+}
+.bi-lock{
+  background-color: red !important;
+}
+/* #rollmodifiers {
+  font-size:30px;
+  display:flex;
+  background-color: white;
+}
+#lockmodifiers {
+  font-size:30px;
+  display:flex;
+  background-color: white;
+} */
+i{
+  height:36px;
+  width:42px;
+  font-size:30px;
+  display:flex;
+  background-color: white;
+}
+.line{
+  background-color:black;
+  height:2px;
+  width:2px;
+  position:absolute;
+  visibility:hidden;
+}
