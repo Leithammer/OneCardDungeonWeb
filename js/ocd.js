@@ -61,22 +61,52 @@ dngtile.set(
 );
 dngtile.set(
   4,
-  new DungeonLevel(5, "SPIDER", [
-    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EXIT"],
-    ["EMPTY", "WALL", "EMPTY", "WALL", "EMPTY"],
-    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+  new DungeonLevel(4, "DRAGON", [
+    ["EXIT", "DRAGON", "EMPTY", "EMPTY", "EMPTY"],
     ["EMPTY", "WALL", "EMPTY", "EMPTY", "EMPTY"],
-    ["ENTER", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "WALL", "EMPTY", "EMPTY", "WALL"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "ENTER"],
   ])
 );
 dngtile.set(
   5,
   new DungeonLevel(5, "SPIDER", [
     ["EMPTY", "SPIDER", "EMPTY", "EMPTY", "EXIT"],
-    ["EMPTY", "WALL", "EMPTY", "WALL", "SPIDER"],
+    ["EMPTY", "EMPTY", "EMPTY", "WALL", "SPIDER"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "WALL", "EMPTY", "WALL", "EMPTY"],
+    ["ENTER", "EMPTY", "EMPTY", "EMPTY", "SPIDER"],
+  ])
+);
+dngtile.set(
+  6,
+  new DungeonLevel(6, "SKELETON", [
+    ["EXIT", "EMPTY", "SKELETON", "EMPTY", "EMPTY"],
+    ["SKELETON", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["WALL", "EMPTY", "EMPTY", "WALL", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "WALL", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "ENTER"],
+  ])
+);
+dngtile.set(
+  7,
+  new DungeonLevel(7, "OGRE", [
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EXIT"],
+    ["EMPTY", "WALL", "EMPTY", "WALL", "OGRE"],
     ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
     ["EMPTY", "WALL", "EMPTY", "EMPTY", "EMPTY"],
-    ["ENTER", "EMPTY", "EMPTY", "EMPTY", "SPIDER"],
+    ["ENTER", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+  ])
+);
+dngtile.set(
+  8,
+  new DungeonLevel(8, "DRAGON", [
+    ["EXIT", "DRAGON", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "WALL", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "WALL", "EMPTY", "EMPTY", "WALL"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "ENTER"],
   ])
 );
 dngtile.set(
@@ -91,7 +121,7 @@ dngtile.set(
 );
 mnstrtypes.set("SPIDER", new Monster("SPIDER", "img/spider.svg", 2, 5, 4, 5, 3));
 mnstrtypes.set("SKELETON", new Monster("SKELETON", "", 3, 4, 5, 4, 4));
-mnstrtypes.set("DRAGON", new Monster("DRAGON", "", 5, 5, 5, 5, 5));
+mnstrtypes.set("DRAGON", new Monster("DRAGON", "img/dragon.svg", 5, 5, 5, 5, 5));
 mnstrtypes.set("OGRE", new Monster("OGRE", "", 5, 3, 7, 7, 2));
 
 // DRAG AND DROP EVENTS
@@ -140,6 +170,12 @@ function dungeonTargetDragDrop(event) {
     toggleChildren(draggable.parentElement, true);
     toggleChildren(dropzone, false);
     dropzone.appendChild(draggable);
+    if (dropzone.classList.contains("exit-location")){
+      currentLevel+=1;
+      levelUp();
+      setupBoard(currentLevel);
+    }
+
   }
 }
 function getDungeonTarget(target) {
@@ -180,6 +216,7 @@ function setupMonster(monstertype) {
   var mnstr = mnstrtypes.get(monstertype);
   var elem = createImageElement("monster-img", mnstr.Image, false);
   elem.classList.add("monster-icon");
+  document.getElementById("monster-image").innerHTML = "";
   document.getElementById("monster-image").appendChild(elem);
   document.getElementById("monster-type").innerText = mnstr.Type;
   document.getElementById("monster-attack").innerText = mnstr.Attack;
@@ -192,7 +229,10 @@ function setupHero() {
   var hmv = document.getElementById("hero-move");
   var hdf = document.getElementById("hero-defense");
   var hrg = document.getElementById("hero-range");
-
+  hatk.innerHTML = "";
+  hmv.innerHTML = "";
+  hdf.innerHTML = "";
+  hrg.innerHTML = "";
   hatk.appendChild(createImageElement("hero-atk", getDieImage("white", hero.Attack), false));
   hmv.appendChild(createImageElement("hero-mv", getDieImage("white", hero.Move), false));
   hdf.appendChild(createImageElement("hero-df", getDieImage("white", hero.Defense), false));
@@ -262,6 +302,7 @@ function fillTiles(level) {
           tile.addEventListener("drop", dungeonTargetDragDrop);
           tile.addEventListener("dragend", dragEnd);
           tile.appendChild(cls);
+          tile.classList.add("exit-location");
           break;
         default:
           tile.addEventListener("dragover", dungeonDragOver);
@@ -392,11 +433,16 @@ function setTitle(level) {
   var tile = document.getElementById("dungeon-title");
   tile.innerText = "DUNGEON LEVEL " + level;
 }
+function levelUp(){
+  hero.Attack+=1;
+}
 function setupBoard(level) {
-  curtiles = dngtile.get(level);
-  fillTiles(curtiles.Level);
-  setTitle(curtiles.Level);
-  setupMonster(curtiles.MonsterType);
-  setupHero();
-  rollModifiers();
+  if (dngtile.has(level)){
+    curtiles = dngtile.get(level);
+    fillTiles(curtiles.Level);
+    setTitle(curtiles.Level);
+    setupMonster(curtiles.MonsterType);
+    setupHero();
+    rollModifiers();
+  }
 }
